@@ -16,7 +16,7 @@ func NewOrderController(orderService *service.OrderService) OrderController {
 	return OrderController{OrderService: *orderService}
 }
 
-func (controller *OrderController) Route(app *fiber.App) {
+func (controller *OrderController) RouteOrder(app *fiber.App) {
 
 	app.Post("/order-service/show-order-list", controller.ShowOrderList)
 	app.Post("/order-service/show-order-product", controller.ShowOrderProduct)
@@ -48,7 +48,7 @@ func (controller *OrderController) ShowOrderProduct(c *fiber.Ctx) error {
 	err := c.BodyParser(&request)
 	exception.PanicIfNeeded(err)
 
-	data := controller.OrderService.FindsOrderList(request)
+	data := controller.OrderService.FindsOrderProduct(request)
 
 	return c.JSON(model.WebResponse{
 		Code:   200,

@@ -3,6 +3,7 @@ package service
 import (
 	"order-service/model"
 	"order-service/repository"
+	"strconv"
 	"time"
 )
 
@@ -34,17 +35,37 @@ func (service *orderServiceImpl) Delrivered(req model.Deliveredreq) (err error) 
 }
 
 func (service *orderServiceImpl) FindsOrderProduct(req model.GetFindOrder) (res []model.ShowOrder) {
-	filter := ""
+	id := strconv.Itoa(req.Id)
+	sellerid := strconv.Itoa(req.SellerId)
+	buyerid := strconv.Itoa(req.BuyerId)
+	quantity := strconv.Itoa(req.Quantity)
+	price := strconv.Itoa(req.Price)
+	totalprice := strconv.Itoa(req.TotalPrice)
+	filter := " where status = 0 and (id like '%" + id + "%' or buyer_name like '%" + req.BuyerName + "%' or seller_name like '%" + req.SellerName + "%' or items like '%" + req.Items + "%' or delivery_source_address like '%" + req.DeliverySourceAddress + "%' or delivery_destination_address like '%" + req.DeliveryDestinationAddress + "%' or buyer_id like '%" + buyerid + "%' or seller_id like '%" + sellerid + "%' or quantity like '%" + quantity + "%' or price like '%" + price + "%' or total_price like '%" + totalprice + "%' )"
 	dataorder, _ := service.OrderRepository.ShowOrder(filter)
 	res = dataorder
+
+	if res == nil {
+		res = []model.ShowOrder{}
+	}
 
 	return res
 }
 
 func (service *orderServiceImpl) FindsOrderList(req model.GetFindOrder) (res []model.ShowOrder) {
-	filter := ""
+	id := strconv.Itoa(req.Id)
+	sellerid := strconv.Itoa(req.SellerId)
+	buyerid := strconv.Itoa(req.BuyerId)
+	quantity := strconv.Itoa(req.Quantity)
+	price := strconv.Itoa(req.Price)
+	totalprice := strconv.Itoa(req.TotalPrice)
+	filter := " where status = 1 and (id like '%" + id + "%' or buyer_name like '%" + req.BuyerName + "%' or seller_name like '%" + req.SellerName + "%' or items like '%" + req.Items + "%' or delivery_source_address like '%" + req.DeliverySourceAddress + "%' or delivery_destination_address like '%" + req.DeliveryDestinationAddress + "%' or buyer_id like '%" + buyerid + "%' or seller_id like '%" + sellerid + "%' or quantity like '%" + quantity + "%' or price like '%" + price + "%' or total_price like '%" + totalprice + "%' )"
 	dataorder, _ := service.OrderRepository.ShowOrder(filter)
 	res = dataorder
+
+	if res == nil {
+		res = []model.ShowOrder{}
+	}
 
 	return res
 }

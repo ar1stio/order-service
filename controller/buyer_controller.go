@@ -61,15 +61,9 @@ func (controller *BuyerController) UpdateBuyer(c *fiber.Ctx) error {
 	var request model.UpdateBuyer
 	err := c.BodyParser(&request)
 	exception.PanicIfNeeded(err)
-	// fmt.Println("atas")
 	// user := c.Locals("user").(*jwt.Token)
-	// fmt.Println("bawah")
 	// claims := user.Claims.(jwt.MapClaims)
-	// fmt.Println(c.Get("user"), "user")
 	// id := claims["sub"].(int)
-	// fmt.Println(claims, "claims")
-	// fmt.Println(user, "user")
-	// fmt.Println(id, "id")
 	// request.Id = id
 
 	err = controller.BuyerService.UpdateBuyer(request)

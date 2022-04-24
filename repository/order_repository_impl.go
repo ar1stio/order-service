@@ -66,7 +66,6 @@ func (repo *orderRepoImpl) Delivered(req model.Deliveredreq) (err error) {
 func (repo *orderRepoImpl) ShowOrder(filter string) (res []model.ShowOrder, err error) {
 	ctx, cancel := config.NewMySqlContext()
 	defer cancel()
-
 	sqlStatement := "SELECT id,buyer_id,seller_id,buyer_name,seller_name,delivery_source_address,delivery_destination_address,items,quantity,status,price,total_price,created_at from orders " + filter
 	record, err := repo.sqlDb.QueryContext(ctx, sqlStatement)
 	if err != nil {

@@ -52,7 +52,7 @@ func main() {
 	productController.Route(app)
 	sellerController.Route(app)
 	buyerController.Route(app)
-	orderController.Route(app)
+	orderController.RouteOrder(app)
 
 	// Start App
 	err := app.Listen(":" + os.Getenv("PORT"))

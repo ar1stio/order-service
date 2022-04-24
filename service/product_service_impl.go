@@ -3,6 +3,7 @@ package service
 import (
 	"order-service/model"
 	"order-service/repository"
+	"strconv"
 	"time"
 )
 
@@ -47,9 +48,16 @@ func (service *productServiceImpl) FindSingleProduct(id int) (res model.ShowSing
 }
 
 func (service *productServiceImpl) FindAllProduct(req model.GetAllProductReq) (res []model.ShowProduct) {
-	filter := ""
+	id := strconv.Itoa(req.Id)
+	sellerid := strconv.Itoa(req.SellerId)
+	price := strconv.Itoa(req.Price)
+	filter := " where product.id like '%" + id + "%' or product.product_name like '%" + req.ProductName + "%' or product.seller_id like '%" + sellerid + "%' or product.price like '%" + price + "%'"
 	datallproduct, _ := service.ProductRepository.FindAllProduct(filter)
 	res = datallproduct
+
+	if res == nil {
+		res = []model.ShowProduct{}
+	}
 
 	return res
 }

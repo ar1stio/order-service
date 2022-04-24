@@ -30,10 +30,10 @@ func TestOrderController_Create(t *testing.T) {
 	}
 	requestBody, _ := json.Marshal(createAddressRequest)
 
-	request := httptest.NewRequest("POST", "/order-service/buyer/create-order", bytes.NewBuffer(requestBody))
+	request := httptest.NewRequest("POST", "/order-service/buyer/order", bytes.NewBuffer(requestBody))
 	request.Header.Set("Content-Type", "application/json")
 	request.Header.Set("Accept", "application/json")
-	request.Header.Set("x-auth-token", "cc22cb9fe343b911f74d2cde1e1d9a8ebfd3b4785decc436e67190b8132aaf1d")
+	// request.Header.Set("x-auth-token", "cc22cb9fe343b911f74d2cde1e1d9a8ebfd3b4785decc436e67190b8132aaf1d")
 
 	response, _ := app.Test(request)
 
@@ -45,5 +45,5 @@ func TestOrderController_Create(t *testing.T) {
 	assert.Equal(t, 200, webResponse.Code)
 	assert.Equal(t, "OK", webResponse.Status)
 
-	assert.Equal(t, "create user successfull", webResponse.Data)
+	assert.Equal(t, "create order successfull", webResponse.Data)
 }

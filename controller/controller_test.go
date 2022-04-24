@@ -12,7 +12,7 @@ import (
 func createTestApp() *fiber.App {
 	var app = fiber.New(config.NewFiberConfig())
 	app.Use(recover.New())
-	buyerController.Route(app)
+	orderController.RouteOrder(app)
 	return app
 }
 
@@ -21,12 +21,12 @@ var configuration = config.New("../.env.test")
 // Setup Repository
 var sqlDb = config.NewMySqlDatabase(configuration)
 
-var buyerRepository = repository.NewBuyerRepository(sqlDb)
+var orderRepository = repository.NewOrderRepository(sqlDb)
 
 // Setup Service
-var buyerService = service.NewBuyerService(&buyerRepository)
+var orderService = service.NewOrderService(&orderRepository)
 
 // Setup Controller
-var buyerController = NewBuyerController(&buyerService)
+var orderController = NewOrderController(&orderService)
 
 var app = createTestApp()

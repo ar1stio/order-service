@@ -1,6 +1,9 @@
 # API Spec
 # Gokomodo backend test
 
+# Go Test Add Order
+go test -run ^TestOrderController_Create$ order-service/controller
+
 # seller-service
 
 For buyer
