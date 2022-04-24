@@ -3,6 +3,7 @@ package service
 import (
 	"crypto/sha256"
 	"encoding/hex"
+	"fmt"
 	"order-service/exception"
 	"order-service/model"
 	"order-service/repository"
@@ -49,6 +50,7 @@ func (service *sellerServiceImpl) Login(req model.LoginSellerReq) (res model.Log
 	req.Password = string(shaStrpass)
 
 	res, err := service.SellerRepository.Login(req)
+	fmt.Println((err))
 	if err != nil {
 		exception.PanicIfNeeded(exception.AuthorizedError{Status: "UNAUTHORIZED", Message: "Tidak dapat menghubungkan ke database"})
 	}

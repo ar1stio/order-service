@@ -5,6 +5,8 @@ import (
 	"order-service/model"
 	"order-service/service"
 
+	"strconv"
+
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -17,9 +19,10 @@ func NewProductController(productService *service.ProductService) ProductControl
 }
 
 func (controller *ProductController) Route(app *fiber.App) {
-	// app.Post("/order-service/seller/login", controller.Login)
-	app.Post("/product-service/seller/register", controller.Register)
-	app.Post("/product-service/seller/update", controller.Update)
+	app.Post("/product-service/seller-product/register", controller.Register)
+	app.Post("/product-service/seller-product/update", controller.Update)
+	app.Get("/product-service/product/:id", controller.FindSingleProduct)
+	app.Post("/product-service/all-product", controller.FindAllProduct)
 }
 
 func (controller *ProductController) GetClient(c *fiber.Ctx) string {
@@ -58,5 +61,34 @@ func (controller *ProductController) Update(c *fiber.Ctx) error {
 		Code:   200,
 		Status: "OK",
 		Data:   message,
+	})
+}
+
+func (controller *ProductController) FindSingleProduct(c *fiber.Ctx) error {
+	// err := c.BodyParser(&request)
+	// exception.PanicIfNeeded(err)
+	id := c.Params("id")
+	idVar, _ := strconv.Atoi(id)
+
+	data := controller.ProductService.FindSingleProduct(idVar)
+
+	return c.JSON(model.WebResponse{
+		Code:   200,
+		Status: "OK",
+		Data:   data,
+	})
+}
+
+func (controller *ProductController) FindAllProduct(c *fiber.Ctx) error {
+	var request model.GetAllProductReq
+	err := c.BodyParser(&request)
+	exception.PanicIfNeeded(err)
+
+	data := controller.ProductService.FindAllProduct(request)
+
+	return c.JSON(model.WebResponse{
+		Code:   200,
+		Status: "OK",
+		Data:   data,
 	})
 }

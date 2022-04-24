@@ -5,7 +5,7 @@ import (
 )
 
 type BuyerService interface {
-	Register(req model.CreateBuyer)(err error)
-	UpdateBuyer(req model.UpdateBuyer, AdminToken string)(err error)
-	Login(req model.LoginBuyerReq)(res model.LoginBuyerRes)
+	Register(req model.CreateBuyer) (err error)
+	UpdateBuyer(req model.UpdateBuyer) (err error)
+	Login(req model.LoginBuyerReq) (res model.LoginBuyerRes)
 }

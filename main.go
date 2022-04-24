@@ -10,7 +10,6 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	jwtware "github.com/gofiber/jwt/v3"
 )
 
 func main() {
@@ -34,21 +33,26 @@ func main() {
 	// Setup Controller
 	orderController := controller.NewOrderController(&orderService)
 	buyerController := controller.NewBuyerController(&buyerService)
+	// buyerRegisterController := controller.NewBuyerRegisterController(&buyerService)
 	sellerController := controller.NewSellerController(&sellerService)
+	// sellerRegisterController := controller.NewSellerRegisterController(&sellerService)
 	productController := controller.NewProductController(&productService)
 
 	// Setup Fiber
 	app := fiber.New(config.NewFiberConfig())
 	app.Use(recover.New())
-	app.Use(jwtware.New(jwtware.Config{
-		SigningKey: []byte("secret"),
-	}))
 
 	// Setup Routing
-	orderController.Route(app)
-	buyerController.Route(app)
-	sellerController.Route(app)
+	// sellerRegisterController.Route(app)
+	// buyerRegisterController.Route(app)
+	//jwt belum jalan
+	// app.Use(jwtware.New(jwtware.Config{
+	// 	SigningKey: []byte("secret"),
+	// }))
 	productController.Route(app)
+	sellerController.Route(app)
+	buyerController.Route(app)
+	orderController.Route(app)
 
 	// Start App
 	err := app.Listen(":" + os.Getenv("PORT"))

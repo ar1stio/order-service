@@ -8,6 +8,8 @@ import (
 	"order-service/repository"
 	"order-service/validation"
 	"time"
+
+	"github.com/golang-jwt/jwt/v4"
 )
 
 type buyerServiceImpl struct {
@@ -55,6 +57,25 @@ func (service *buyerServiceImpl) Login(req model.LoginBuyerReq) (res model.Login
 	if res.Email == "" {
 		exception.PanicIfNeeded(exception.AuthorizedError{Status: "UNAUTHORIZED", Message: "Password dan Email tidak ditemukan"})
 	}
+
+	claims := jwt.MapClaims{
+		"sub":  res.Id,
+		"name": res.Name,
+		"role": "buyer",
+		"exp":  time.Now().Add(time.Hour * 72).Unix(),
+	}
+
+	// Create token
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+	// Generate encoded token and send it as response.
+	t, err := token.SignedString([]byte("secret"))
+	if err != nil {
+		exception.PanicIfNeeded("Gagal membuat token")
+	}
+
+	res.Token = t
+
 	// currentTime := time.Now()
 
 	// h := sha256.New()
@@ -74,12 +95,8 @@ func (service *buyerServiceImpl) Login(req model.LoginBuyerReq) (res model.Login
 	return res
 }
 
-func (service *buyerServiceImpl) UpdateBuyer(req model.UpdateBuyer, AdminToken string) (err error) {
+func (service *buyerServiceImpl) UpdateBuyer(req model.UpdateBuyer) (err error) {
 	// validation.ValidationIdBuyer(req)
-	//testmncportaladmin sha256
-	if AdminToken != "cc22cb9fe343b911f74d2cde1e1d9a8ebfd3b4785decc436e67190b8132aaf1d" {
-		exception.PanicIfNeeded(exception.AuthorizedError{Status: "UNAUTHORIZED", Message: "Token admin tidak sesuai"})
-	}
 
 	currentTime := time.Now()
 

@@ -12,16 +12,14 @@ type BuyerController struct {
 	BuyerService service.BuyerService
 }
 
-func NewBuyerController(userService *service.BuyerService) BuyerController {
-	return BuyerController{BuyerService: *userService}
+func NewBuyerController(buyerService *service.BuyerService) BuyerController {
+	return BuyerController{BuyerService: *buyerService}
 }
 
 func (controller *BuyerController) Route(app *fiber.App) {
 	app.Post("/order-service/buyer/login", controller.Login)
 	app.Post("/order-service/buyer/register", controller.Register)
 	app.Post("/order-service/buyer/update", controller.UpdateBuyer)
-	// app.Post("/order-service/user/authentication", controller.AuthenticationBuyer)
-	// app.Post("/order-service/user/register-member", controller.RegisterMember)
 }
 
 func (controller *BuyerController) GetClient(c *fiber.Ctx) string {
@@ -63,9 +61,18 @@ func (controller *BuyerController) UpdateBuyer(c *fiber.Ctx) error {
 	var request model.UpdateBuyer
 	err := c.BodyParser(&request)
 	exception.PanicIfNeeded(err)
-	token := c.Get("x-auth-token")
+	// fmt.Println("atas")
+	// user := c.Locals("user").(*jwt.Token)
+	// fmt.Println("bawah")
+	// claims := user.Claims.(jwt.MapClaims)
+	// fmt.Println(c.Get("user"), "user")
+	// id := claims["sub"].(int)
+	// fmt.Println(claims, "claims")
+	// fmt.Println(user, "user")
+	// fmt.Println(id, "id")
+	// request.Id = id
 
-	err = controller.BuyerService.UpdateBuyer(request, token)
+	err = controller.BuyerService.UpdateBuyer(request)
 	message := "update user successfull"
 	if err != nil {
 		message = err.Error()
