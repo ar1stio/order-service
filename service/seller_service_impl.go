@@ -75,10 +75,3 @@ func (service *sellerServiceImpl) UpdateSeller(req model.UpdateSeller, AdminToke
 	err = service.SellerRepository.Update(req)
 	return err
 }
-
-func (service *sellerServiceImpl) FinsSellerCompany(companyid int) (res []model.GetSellerCompanyRespon) {
-	datatokenuser, _ := service.SellerRepository.ShowSellerCompany(companyid)
-	res = datatokenuser
-
-	return res
-}

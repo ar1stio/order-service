@@ -5,8 +5,7 @@ import (
 )
 
 type SellerService interface {
-	Register(req model.CreateSeller)(err error)
-	Login(req model.GetLoginRequest)(res model.GetFindTokenSellerResponse)
-	UpdateSeller(req model.UpdateSeller, AdminToken string)(err error)
-	FinsSellerCompany(companyid int) (res []model.GetSellerCompanyRespon)
+	Register(req model.CreateSeller) (err error)
+	Login(req model.LoginSellerReq) (res model.LoginSellerRes)
+	UpdateSeller(req model.UpdateSeller, AdminToken string) (err error)
 }

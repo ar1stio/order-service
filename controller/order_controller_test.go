@@ -14,16 +14,19 @@ import (
 func TestOrderController_Create(t *testing.T) {
 	// memberaddressRepository.DeleteAll()
 	createAddressRequest := model.CreateOrder{
-		Uuid:       "",
-		Name:       "Aristio3",
-		Password:   "admin123",
-		Email:      "theeo_chau@yahoo.com",
-		Handphone:  "085523865720",
-		Token:      "",
-		Status:     0,
-		CreatedAt:  "",
-		UpdatedAt:  "",
-		VerifiedAt: "",
+		BuyerId:                    1,
+		BuyerName:                  "Aristio3",
+		SellerId:                   1,
+		SellerName:                 "juara",
+		DeliverySourceAddress:      "bandung",
+		DeliveryDestinationAddress: "jakarta",
+		Items:                      "tv",
+		Status:                     0,
+		Quantity:                   1,
+		Price:                      2000,
+		TotalPrice:                 1000,
+		CreatedAt:                  "",
+		UpdatedAt:                  "",
 	}
 	requestBody, _ := json.Marshal(createAddressRequest)
 
