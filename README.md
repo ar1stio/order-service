@@ -7,7 +7,7 @@ For buyer
 
 <!-- Request : -->
 <!-- - Header : -->
-    <!-- - X-Api-Key : "your secret api key" -->
+<!-- - X-Api-Key : "your secret api key" -->
 
 ## Register Buyer
 
@@ -110,7 +110,7 @@ For seller
 
 <!-- Request : -->
 <!-- - Header : -->
-    <!-- - X-Api-Key : "your secret api key" -->
+<!-- - X-Api-Key : "your secret api key" -->
 
 ## Register Seller
 
@@ -208,7 +208,7 @@ For buyer and seller
 
 <!-- Request : -->
 <!-- - Header : -->
-    <!-- - X-Api-Key : "your secret api key" -->
+<!-- - X-Api-Key : "your secret api key" -->
 
 ## Add Product
 
@@ -341,7 +341,7 @@ For buyer and seller
 
 <!-- Request : -->
 <!-- - Header : -->
-    <!-- - X-Api-Key : "your secret api key" -->
+<!-- - X-Api-Key : "your secret api key" -->
 
 ## Add Order
 
